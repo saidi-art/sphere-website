@@ -47,7 +47,7 @@
 <dt>Screen recording</dt>
 <dd>When you start a recording, the app shows its own explanation, then Android's system consent prompt, and records your screen until you stop it. A recording can include anything visible on screen, including content from other apps. The text is read from the recording entirely on your phone.</dd>
 <dt>Accessibility service</dt>
-<dd>Sphere uses Android's accessibility API to scroll the screen and take screenshots during a capture, only while you have started one. It does not read text, window contents or what you type, and nothing it sees leaves your phone.</dd>
+<dd>Sphere uses Android's accessibility API to scroll the screen and take screenshots during a capture, only while you have started one. By default, Sphere works from those screenshots and turns them into searchable text on your phone; it does not read text, window contents or what you type through the accessibility service. Direct text is an optional, experimental setting, off by default. If you turn it on in Settings, Sphere asks for your consent in the app first; with it on, Sphere reads the text on screen in the app you capture from, only while a capture is running.</dd>
 <dt>Your files</dt>
 <dd>Recordings, screenshots and the finished texts are saved as ordinary files on your phone, in your own folder under Download/Sphere. They are never uploaded. They stay until you delete them, in any file manager.</dd>
 <dt>Overlay and notifications</dt>
