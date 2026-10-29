@@ -13,7 +13,7 @@
     function say(msg, cls){ state.textContent = msg; state.className = "state " + (cls || ""); }
     form.addEventListener("submit", function(ev){
       ev.preventDefault();
-      if(!email.value || !/^[[^\]s@]+@[^[^\]s@]+\.[^[^\]s@]+$/.test(email.value.trim())){
+      if(!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
         say("That email doesn't look right.", "err");
         email.setAttribute("aria-invalid", "true");
         return;
