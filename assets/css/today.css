@@ -1,0 +1,30 @@
+/* Sphere "Today" dial styles. Tokens are set by assets/js/today.js. */
+.today{max-width:440px;margin:0 auto;padding:8px 20px 8px;color:var(--t-ink)}
+.today-date{display:flex;justify-content:space-between;align-items:flex-start;padding-top:18px;min-height:88px}
+.t-weekday{display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--t-quiet)}
+.t-datelong{display:block;font-family:Sora,sans-serif;font-weight:600;font-size:27px;letter-spacing:-.02em;color:var(--t-ink);margin-top:4px}
+.t-park{display:flex;flex-direction:column;align-items:center;gap:4px;width:76px;flex:none}
+.t-park-circle{width:56px;height:56px;border-radius:50%;border:2px dashed var(--t-hueedge)}
+.t-park span{font-size:10px;line-height:1.2;text-align:center;color:var(--t-quiet)}
+.today-clockwrap{display:flex;justify-content:center;margin-top:4px}
+.t-dial{max-width:100%;height:auto;display:block}
+.today-time{margin-top:8px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.t-time{font-family:Sora,sans-serif;font-weight:600;font-size:40px;letter-spacing:.01em;font-variant-numeric:tabular-nums;color:var(--t-ink)}
+.t-tz{font-size:12px;color:var(--t-quiet)}
+.today-palette{margin:20px 0 0;padding-top:16px;border-top:1px solid var(--t-rule);display:flex;flex-direction:column;gap:10px}
+.t-label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--t-quiet)}
+.t-chips{display:flex;justify-content:space-between}
+.t-chip{display:flex;flex-direction:column;align-items:center;gap:6px;width:64px}
+.t-chip-ball{width:40px;height:32px;border-radius:50%}
+.t-chip span{font-size:11px;color:var(--t-quiet)}
+.today-meta{margin:16px 0 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.t-dayhue{font-size:12px;color:var(--t-quiet)}
+.t-testlabel{font-size:12px;font-weight:600;color:var(--t-ink);text-align:right}
+.t-streak{margin:8px 0 0;display:flex;gap:5px}
+.t-streak i{flex:1;height:6px;border-radius:3px;display:block}
+@media (max-width:400px){
+  .t-datelong{font-size:21px}
+  .t-park{width:66px}
+  .t-park-circle{width:48px;height:48px}
+  .t-time{font-size:34px}
+}
