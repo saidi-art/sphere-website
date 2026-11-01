@@ -1,4 +1,4 @@
-/* Sphere "Today" dial: live date, clock, day colour and testing streak.
+/* Sphere "Today" dial: live date, clock and day colour.
    Ported from the design package board 10/11 (TodayDial), 31 Oct 2026.
    Static, no dependencies, no third-party requests. Times come from the
    viewer's own clock and time zone, exactly as on the design canvas. */
@@ -6,7 +6,7 @@
   "use strict";
 
   var GA = 137.50776;            /* golden angle, degrees */
-  var TEST_START = "2026-10-31"; /* closed-testing start date */
+  var TEST_START = "2026-10-31"; /* closed-testing start date, kept for when the counter returns */
   var TEST_DAYS = 14;
 
   var root = document.querySelector(".today");
@@ -123,19 +123,12 @@
         '"></div><span>' + c.name + "</span></div>";
     }).join("");
     el.dayhue.textContent = "Day " + doy + " of " + yearDays + " \u00b7 hue " + hue.toFixed(1) + "\u00b0";
-    var today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var st = new Date(TEST_START + "T00:00:00");
-    var n = Math.round((today0 - st) / 864e5) + 1;
-    var bars = "", i;
-    for (i = 0; i < TEST_DAYS; i++) {
-      var style = "background:" + (i < n ? col(hue) : t.streakEmpty);
-      if (i === n - 1) {
-        style += ";box-shadow:0 0 0 2px " + t.ringOuter + ", 0 0 0 3.5px " + col(hue, 0.5, 0.13);
-      }
-      bars += '<i style="' + style + '"></i>';
-    }
-    el.streak.innerHTML = bars;
-    el.test.textContent = n < 1 ? "Testing starts soon" : n > TEST_DAYS ? "Testing complete" : "Testing \u00b7 day " + n + " of " + TEST_DAYS;
+    /* Closed-testing day counter removed 1 Nov 2026: testing has not begun,
+       so the day numbers were not accurate. Restore the streak bars and the
+       "Testing \u00b7 day N of 14" label once testing starts; TEST_START and
+       TEST_DAYS above are kept for that. */
+    el.streak.innerHTML = "";
+    el.test.textContent = "";
   }
 
   function tick() {
