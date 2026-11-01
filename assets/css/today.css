@@ -1,9 +1,9 @@
 /* Sphere "Today" dial styles. Tokens are set by assets/js/today.js. */
-.today{max-width:440px;margin:0 auto;padding:8px 20px 8px;color:var(--t-ink)}
+.today{max-width:440px;margin:0 auto;padding:8px 20px 8px;color:var(--t-ink);position:relative}
 .today-date{display:flex;justify-content:space-between;align-items:flex-start;padding-top:18px;min-height:88px}
 .t-weekday{display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--t-quiet)}
 .t-datelong{display:block;font-family:Sora,sans-serif;font-weight:600;font-size:27px;letter-spacing:-.02em;color:var(--t-ink);margin-top:4px}
-.t-park{display:flex;flex-direction:column;align-items:center;gap:4px;width:76px;flex:none}
+.t-park{position:absolute;right:-20px;bottom:190px;display:flex;flex-direction:column;align-items:center;gap:4px;width:76px;flex:none}
 .t-park-circle{width:56px;height:56px;border-radius:50%;border:2px dashed var(--t-hueedge)}
 .t-park span{font-size:10px;line-height:1.2;text-align:center;color:var(--t-quiet)}
 .today-clockwrap{display:flex;justify-content:center;margin-top:4px}
