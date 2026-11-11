@@ -6,4 +6,4 @@ Public pages for Sphere by KubeAI (Android), served at https://sphere.kubeai.inf
 - `/app/` about Sphere (the daily-colour theme story)
 - `/deletion/` account deletion instructions
 
-Contact: saidi@kubeai.info
+Contact: support@kubeai.info
