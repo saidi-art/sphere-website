@@ -24,6 +24,26 @@
   .site-foot p{margin:0}
   .site-foot a{color:var(--link)}
   .main{padding-bottom:8px}
+
+  /* v1 expansion components */
+  .story h2{scroll-margin-top:80px}
+  .demo-frame{margin:18px 0 4px;border:1px solid var(--hair);border-radius:16px;background:var(--panel);
+    padding:26px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+  .demo-frame .df-title{font-family:Sora,Inter,sans-serif;font-weight:600;font-size:.95rem;color:var(--ink)}
+  .demo-frame .df-note{font-size:.85rem;color:var(--ink2)}
+  .ways{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:14px 0 4px}
+  .way{border:1px solid var(--hair);border-radius:16px;background:var(--panel);padding:16px 18px}
+  .way h3{margin:0 0 6px}
+  .way p{margin:0;font-size:.95rem;color:var(--ink2)}
+  .key{list-style:none;margin:12px 0 4px;padding:0;display:grid;gap:10px;max-width:680px}
+  .key li{margin:0;padding:0}
+  .rec-demo{margin:18px 0 4px;max-width:680px;border:1px solid var(--hair);border-radius:16px;background:var(--panel);padding:18px 20px}
+  .rec-demo label{display:block;font-size:.9rem;color:var(--ink2);margin-bottom:8px}
+  .rec-demo input[type=range]{width:100%;accent-color:var(--gold)}
+  .rec-readout{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:10px}
+  .rec-speed{font-family:Sora,Inter,sans-serif;font-weight:600;font-size:1.05rem;color:var(--ink)}
+  .rec-note{font-size:.9rem;color:var(--ink2);flex:1 1 260px}
+  .rec-pause{margin-top:12px}
 </style>
 </head>
 <body>
@@ -76,10 +96,103 @@
     <p>REC turns what it records into searchable text on your phone; other captures come back as images (Image / Open / Share). Captures and their text are processed on your phone and stay there unless you choose to share. There are no ads, no analytics and no tracking.</p>
   </section>
 
+  <section class="story" id="quick-capture">
+    <h2>An instant screenshot, exactly where you drop it.</h2>
+    <p>Double-tap the idle sphere and it takes the screenshot. A single idle tap deliberately does nothing, so a capture never happens by accident. The result appears in a popup with its own actions, staying for about five seconds; a tap outside dismisses it and still reaches the app underneath.</p>
+    <p>From there, hand the capture into another app: capture here, switch, drop there.</p>
+    <figure class="demo-frame" data-demo="D1">
+      <span class="df-title">Demo &middot; Quick capture and handoff</span>
+      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+    </figure>
+  </section>
+
   <section class="story">
     <h2>A whole thread, tap and leave.</h2>
     <p>Long-press the sphere and choose Rescue: it scrolls back toward the top of the chat, then captures its way back down while you get on with something else. A Cancel/Done bar stays available throughout, and your phone is kept awake during the run.</p>
     <p>Sphere hands over exactly what it captured: no rewriting, no summaries. Direct text, which reads the screen through Android's accessibility API instead of the pixels, is optional, experimental, off by default and separately consented.</p>
+  <figure class="demo-frame" data-demo="D2">
+      <span class="df-title">Demo &middot; Rescue chat</span>
+      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+    </figure>
+  </section>
+
+  <section class="story" id="rec">
+    <h2>REC: record a long thread, keep the words.</h2>
+    <p>Long-press the sphere and choose REC. Sphere explains what is about to happen in its own design, then Android asks for screen-recording consent. Recording runs with the sphere, a speed bar and the Cancel/Done bar on screen, and auto-scroll is already running.</p>
+    <p>REC is for big captures: long threads and lots of text. The speed bar sets the pace from 0 to 10. The app&rsquo;s own first-use tip recommends speed 10 for faster results on long scroll threads, and notes that slower scrolling means longer processing.</p>
+    <p>At speed 0, you scroll yourself while recording continues. The oval thumb holds pause and play: one deliberate tap pauses or resumes scrolling and recording together, and dragging the thumb changes speed. The speed bar can be repositioned like the sphere, with a generous drag area.</p>
+    <p>Finish with a single tap (Done) or the Cancel/Done bar. Processing follows as its own phase, with a short sound cue near the end. The result arrives in a notification offering Text / Open / Share.</p>
+    <div class="rec-demo" role="group" aria-label="Try the REC speed control">
+      <label for="rec-speed">Try the speed bar (it sets the pace, 0 to 10)</label>
+      <input type="range" id="rec-speed" min="0" max="10" step="1" value="6">
+      <div class="rec-readout">
+        <span class="rec-speed" id="rec-speed-label" aria-live="polite">Speed 6</span>
+        <span class="rec-note" id="rec-speed-note">Drag the thumb to set the pace while recording continues.</span>
+      </div>
+      <button type="button" class="btn rec-pause" id="rec-pause">Pause</button>
+    </div>
+    <figure class="demo-frame" data-demo="D3">
+      <span class="df-title">Demo &middot; REC, the priority animation</span>
+      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+    </figure>
+  </section>
+
+  <section class="story" id="three-ways">
+    <h2>Three ways down a page.</h2>
+    <p>Three different tools share the same scroll, so here they are side by side.</p>
+    <div class="ways">
+      <div class="way">
+        <h3>Auto-scroll</h3>
+        <p>Scrolls the page hands-free and captures nothing: a reading aid. Choose it from the long-press menu.</p>
+      </div>
+      <div class="way">
+        <h3>Auto capture</h3>
+        <p>Drag the sphere onto its bottom target and a stitched long screenshot builds itself, hands-free. The sphere returns to where it was last parked.</p>
+      </div>
+      <div class="way">
+        <h3>REC</h3>
+        <p>Records the page as it goes, then gives you the text.</p>
+      </div>
+    </div>
+    <p>Auto-scroll captures nothing. Auto capture makes a long screenshot. REC records, then gives text.</p>
+    <figure class="demo-frame" data-demo="D4 D5">
+      <span class="df-title">Demo &middot; Auto capture and Auto-scroll</span>
+      <span class="df-note">Animated demos in production; these frames are where they land.</span>
+    </figure>
+  </section>
+
+  <section class="story" id="controls">
+    <h2>Every tap is deliberate.</h2>
+    <ul class="key">
+      <li><b>Idle:</b> double-tap captures; a single tap does nothing.</li>
+      <li><b>Long-press:</b> the tools: Rescue, REC, Auto-scroll and Tools.</li>
+      <li><b>During Rescue, Auto capture or REC:</b> one tap finishes (Done), two taps cancel.</li>
+      <li><b>The Cancel/Done bar</b> does both visibly, and is the accessible route (TalkBack).</li>
+      <li><b>Taps are deliberately firm:</b> a light haptic tick when the first tap registers, and distinct Done and Cancel feedback, so you never lose work to a misread tap.</li>
+      <li><b>Sounds:</b> an auto-scroll sound and an end-of-processing cue, each switchable in Settings.</li>
+    </ul>
+  </section>
+
+  <section class="story" id="results">
+    <h2>Your captures, your folder.</h2>
+    <p>Results arrive as notifications with actions: REC captures offer Text / Open / Share; other captures offer Image / Open / Share. The notification shade is always the fallback route back to a capture.</p>
+    <p>Captures save as ordinary files in Download/Sphere, one subfolder per account, with titles drawn from what is in them rather than date stamps. Files already on your phone are never moved or deleted by the app.</p>
+    <p>Sphere does not rewrite or summarise what it captures. Handing a capture to another app is always your own deliberate act.</p>
+    <figure class="demo-frame" data-demo="D6">
+      <span class="df-title">Demo &middot; Results and handoff</span>
+      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+    </figure>
+  </section>
+
+  <section class="story" id="account">
+    <h2>Signed in, and yours.</h2>
+    <p>Sign-in is required before capturing: email and password, or Google. Sign-in runs through Firebase Authentication, a Google service. After the first sign-in, one small card asks what to call you, once, with your Google name prefilled where available and editable later in Settings.</p>
+    <p>That name supplies the sphere&rsquo;s initial, drawn as a serif letterform, brass on Night desk. Your captures save under your account&rsquo;s own subfolder in Download/Sphere.</p>
+    <p>Signing out or deleting your account stops the sphere and new captures; capture files already on your phone stay. Deletion lives in Settings and is also honoured by email.</p>
+    <figure class="demo-frame" data-demo="D7">
+      <span class="df-title">Demo &middot; Account and personalisation</span>
+      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+    </figure>
   </section>
 
   <section class="story">
@@ -110,7 +223,24 @@
     <p>&copy; 2026 KubeAI &middot; <a href="mailto:support@kubeai.info">support@kubeai.info</a> &middot; <a href="app/">About Sphere</a> &middot; <a href="privacy/">Privacy policy</a> &middot; <a href="deletion/">Delete your account</a> &middot; <a href="waitlist-notice/">Waiting-list notice</a></p>
   </div>
 </footer>
-<script src="assets/js/sphere.js" defer></script>
+<script>
+(function(){
+  var r=document.getElementById('rec-speed'); if(!r) return;
+  var lab=document.getElementById('rec-speed-label'), note=document.getElementById('rec-speed-note');
+  function upd(){
+    var v=parseInt(r.value,10);
+    lab.textContent='Speed '+v;
+    note.textContent = v===0 ? 'Speed 0: you scroll yourself; recording keeps running.'
+      : v===10 ? 'Speed 10: the app\u2019s own tip for long scroll threads. Slower scrolling means longer processing.'
+      : 'Drag the thumb to set the pace while recording continues.';
+  }
+  r.addEventListener('input',upd); upd();
+  var p=document.getElementById('rec-pause'), paused=false;
+  p.addEventListener('click',function(){ paused=!paused; p.textContent=paused?'Resume':'Pause';
+    note.textContent=paused?'One deliberate tap pauses or resumes scrolling and recording together.':note.textContent; });
+})();
+</script>
+<script src="assets/js/sphere.js" defer>
 <script src="assets/js/today.js" defer></script>
 </body>
 </html>
