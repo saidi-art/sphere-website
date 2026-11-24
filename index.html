@@ -82,14 +82,6 @@ r.setProperty('--c-rec','oklch(0.66 0.17 '+n(hue+300)+')');
 r.setProperty('--c-tools','oklch(0.72 0.07 '+n(hue+180)+')');
 window.SPHUE=hue;window.SPHN=n;
 })();
-
-  var vids=[].slice.call(document.querySelectorAll('.df-vid'));
-  var rmMotion=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if('IntersectionObserver' in window && vids.length){
-    var vio=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(!v)return;
-      if(en.isIntersecting&&!rmMotion){v.play().catch(function(){});}else{v.pause();}});},{threshold:.25});
-    vids.forEach(function(v){vio.observe(v);});
-  }
 </script>
 <style>
 .recx-cols{display:flex;flex-wrap:wrap;gap:26px;margin:20px 0 8px;align-items:flex-start}
@@ -310,7 +302,8 @@ window.SPHUE=hue;window.SPHN=n;
     <p>From there, hand the capture into another app: capture here, switch, drop there.</p>
     <figure class="demo-frame" data-demo="D1">
       <span class="df-title">Demo &middot; Quick capture and handoff</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D1.mp4" poster="assets/anim/D1.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: quick capture and handoff"></video>
+      <span class="df-note">21 seconds. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
@@ -320,7 +313,8 @@ window.SPHUE=hue;window.SPHN=n;
     <p>Sphere hands over exactly what it captured: no rewriting, no summaries.</p>
   <figure class="demo-frame" data-demo="D2">
       <span class="df-title">Demo &middot; Rescue chat</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D2.mp4" poster="assets/anim/D2.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: Rescue chat"></video>
+      <span class="df-note">23.5 seconds, partly sped up. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
@@ -380,7 +374,8 @@ window.SPHUE=hue;window.SPHN=n;
     </div>
     <figure class="demo-frame" data-demo="D3">
       <span class="df-title">Demo &middot; REC, the priority animation</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D3.mp4" poster="assets/anim/D3.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: REC, screen recording"></video>
+      <span class="df-note">35 seconds, partly sped up. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
@@ -419,7 +414,8 @@ window.SPHUE=hue;window.SPHN=n;
     <p>Auto-scroll captures nothing. Auto capture makes a long screenshot. REC records, then gives text.</p>
     <figure class="demo-frame" data-demo="D4 D5">
       <span class="df-title">Demo &middot; Auto capture and Auto-scroll</span>
-      <span class="df-note">Animated demos in production; these frames are where they land.</span>
+      <div class="df-vids"><video class="df-vid" src="assets/anim/D4.mp4" poster="assets/anim/D4.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: Auto capture"></video><video class="df-vid" src="assets/anim/D5.mp4" poster="assets/anim/D5.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: Auto-scroll"></video></div>
+      <span class="df-note">Two demos, 20 and 15.5 seconds; Auto capture is partly sped up.s in production; these frames are where they land.</span>
     </figure>
   </section>
 
@@ -452,7 +448,8 @@ window.SPHUE=hue;window.SPHN=n;
     <p>Direct text, which reads the screen through Android's accessibility API instead of the pixels, is optional, experimental, off by default and separately consented.</p>
     <figure class="demo-frame" data-demo="D6">
       <span class="df-title">Demo &middot; Results and handoff</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D6.mp4" poster="assets/anim/D6.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: results and handoff"></video>
+      <span class="df-note">20 seconds. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
@@ -463,7 +460,8 @@ window.SPHUE=hue;window.SPHN=n;
     <p>Signing out or deleting your account stops the sphere and new captures; capture files already on your phone stay. Deletion lives in Settings and is also honoured by email.</p>
     <figure class="demo-frame" data-demo="D7">
       <span class="df-title">Demo &middot; Account and personalisation</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D7.mp4" poster="assets/anim/D7.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: account and personalisation"></video>
+      <span class="df-note">19.5 seconds. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
@@ -667,6 +665,13 @@ if(ui){
   uiRender();
 }
 })();
+  var vids=[].slice.call(document.querySelectorAll('.df-vid'));
+  var rmMotion=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if('IntersectionObserver' in window && vids.length){
+    var vio=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(!v)return;
+      if(en.isIntersecting&&!rmMotion){v.play().catch(function(){});}else{v.pause();}});},{threshold:.25});
+    vids.forEach(function(v){vio.observe(v);});
+  }
 </script>
 </body>
 </html>
