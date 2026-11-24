@@ -31,6 +31,8 @@
     padding:26px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
   .demo-frame .df-title{font-family:Sora,Inter,sans-serif;font-weight:600;font-size:.95rem;color:var(--ink)}
   .demo-frame .df-note{font-size:.85rem;color:var(--ink2)}
+  .df-vids{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:2px 0 6px}
+  .demo-frame video.df-vid{width:min(272px,86%);aspect-ratio:9/16;height:auto;object-fit:cover;border-radius:14px;background:#0c1310}
   .ways{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));margin:14px 0 4px}
   .way{border:1px solid var(--hair);border-radius:16px;background:var(--panel);padding:16px 18px}
   .way h3{margin:0 0 6px}
@@ -44,6 +46,159 @@
   .rec-speed{font-family:Sora,Inter,sans-serif;font-weight:600;font-size:1.05rem;color:var(--ink)}
   .rec-note{font-size:.9rem;color:var(--ink2);flex:1 1 260px}
   .rec-pause{margin-top:12px}
+</style>
+<style>
+:root{--c-sphere:#7A5FA0;--c-rescue:#4C8A5A;--c-scroll:#3E6FA8;--c-rec:#A85560;--c-tools:#8A8590;--c-ink:#1d1c1e}
+.g-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 8px 2px 0;vertical-align:middle;background:var(--acc,#ccc)}
+.g-card{padding:20px;border-radius:18px;background:#fff;border:1px solid #ECE8EE;display:flex;flex-direction:column;gap:8px}
+.g-card h3{margin:0;font-size:17px}
+.g-card p{margin:0;font-size:13.5px;line-height:1.5;color:#3D3932}
+.g-card small{font-size:11.5px;color:#5F5B57}
+.g-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:14px;margin:18px 0}
+.tw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(216px,1fr));gap:18px;margin:20px 0}
+.tw-card{padding:22px;border-radius:20px;background:#fff;border:1px solid #ECE8EE;border-top:4px solid var(--acc,#ccc);display:flex;flex-direction:column;gap:14px}
+.tw-head{display:flex;align-items:center;justify-content:space-between}
+.tw-head h3{margin:0;font-size:19px}
+.tw-ball{width:24px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,color-mix(in oklch,var(--acc),white 45%),var(--acc) 55%,color-mix(in oklch,var(--acc),black 22%))}
+.tw-art{display:flex;align-items:center;justify-content:center;gap:14px;height:190px;border-radius:14px;background:color-mix(in oklch,var(--acc),white 93%)}
+.tw-phone{position:relative;width:92px;height:160px;border-radius:14px;border:3px solid #1d1c1e;background:#fff;padding:10px 8px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.tw-l{height:4px;border-radius:2px;background:#D9D4DC}
+.tw-dl{margin:0;display:grid;grid-template-columns:74px 1fr;gap:7px 10px;font-size:13px;line-height:1.45}
+.tw-dl dt{font-weight:600;color:#5F5B57}
+.tw-dl dd{margin:0}
+.gk-foot{font-size:13.5px;color:#5F5B57}
+.gk-lead{font-size:15px;line-height:1.55;color:#3D3932;margin:14px 0 2px}
+</style>
+<script>
+(function(){
+var now=new Date(),y=now.getFullYear();
+var doy=Math.round((new Date(y,now.getMonth(),now.getDate())-new Date(y,0,1))/864e5)+1;
+var hue=(doy*137.50776)%360;var n=function(h){return (((h%360)+360)%360).toFixed(1);};
+var r=document.documentElement.style;
+r.setProperty('--c-sphere','oklch(0.6 0.16 '+n(hue)+')');
+r.setProperty('--c-rescue','oklch(0.6 0.16 '+n(hue+120)+')');
+r.setProperty('--c-scroll','oklch(0.6 0.16 '+n(hue+240)+')');
+r.setProperty('--c-rec','oklch(0.66 0.17 '+n(hue+300)+')');
+r.setProperty('--c-tools','oklch(0.72 0.07 '+n(hue+180)+')');
+window.SPHUE=hue;window.SPHN=n;
+})();
+</script>
+<style>
+.recx-cols{display:flex;flex-wrap:wrap;gap:26px;margin:20px 0 8px;align-items:flex-start}
+.recx-side{flex:1 1 240px;max-width:340px}
+.recx-mid{flex:0 0 auto}
+.recx-try{flex:1 1 250px;max-width:380px}
+.recx-eyebrow{display:block;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5F5B57;margin-bottom:10px}
+.recx-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;counter-reset:rs}
+.recx-steps li{counter-increment:rs;display:flex;gap:10px;align-items:baseline;padding:8px 10px;border-radius:10px;font-size:13.5px;line-height:1.4;color:#6E6973}
+.recx-steps li::before{content:counter(rs);font-weight:600;color:#8A8590;width:16px;flex:none}
+.recx-steps li.on{background:color-mix(in oklch,var(--c-rec),white 92%);color:#1d1c1e;font-weight:600}
+.recx-steps li.on::before{color:var(--c-rec)}
+.recx-phone{position:relative;width:320px;height:620px;border-radius:40px;padding:11px;background:#1d1c1e;box-shadow:0 24px 50px rgba(29,28,30,.22);margin:0 auto}
+.recx-screen{position:relative;width:100%;height:100%;border-radius:31px;overflow:hidden;background:#F4F2F6}
+.recx-head{height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#fff;border-bottom:1px solid #ECE8EE;box-sizing:border-box}
+.recx-head span:first-child{font-size:12px;font-weight:600;color:#3D3932}
+.recx-chip{display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;color:var(--c-rec)}
+.recx-chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c-rec);animation:recxBlink 1.4s ease-in-out infinite}
+.recx-chip.paused::before{animation:none;opacity:.4}
+.recx-scroll{position:relative;height:490px;overflow:hidden;touch-action:none}
+.recx-msgs{display:flex;flex-direction:column;gap:8px;padding:10px 12px;will-change:transform}
+.recx-m{max-width:86%;padding:7px 10px;border-radius:12px;background:#fff;font-size:11px;line-height:1.35;color:#1d1c1e}
+.recx-m.them{background:color-mix(in oklch,var(--c-rec),white 88%)}
+.recx-m b{display:block;font-size:9.5px;color:#5F5B57}
+.recx-ball{position:absolute;right:9px;top:150px;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,color-mix(in oklch,var(--c-sphere),white 45%),var(--c-sphere) 55%,color-mix(in oklch,var(--c-sphere),black 25%));box-shadow:0 6px 14px rgba(0,0,0,.25)}
+.recx-manual{position:absolute;left:20px;right:20px;top:220px;padding:10px 12px;border-radius:12px;background:rgba(29,28,30,.86);color:#fff;font-size:12px;line-height:1.45;text-align:center}
+.recx-bar{position:absolute;left:18px;right:18px;bottom:66px;height:44px;padding:5px 7px;border-radius:22px;background:rgba(255,255,255,.95);box-shadow:0 6px 18px rgba(0,0,0,.16);box-sizing:border-box}
+.recx-track{position:relative;width:100%;height:34px}
+.recx-track::before{content:"";position:absolute;left:0;right:0;top:13px;height:8px;border-radius:4px;background:color-mix(in oklch,var(--c-rec),white 82%)}
+.recx-fill{position:absolute;left:0;top:13px;height:8px;border-radius:4px;background:var(--c-rec)}
+.recx-thumb{position:absolute;top:0;width:48px;height:34px;border-radius:50%;background:#fff;border:2px solid var(--c-rec);display:flex;align-items:center;justify-content:center;gap:3px;box-sizing:border-box}
+.recx-thumb span{width:3px;height:12px;border-radius:1px;background:var(--c-rec)}
+.recx-thumb span:last-child{display:none}
+.recx-thumb.paused span{display:block}
+.recx-thumb.paused span:first-child{display:none}
+.recx-range{position:absolute;inset:0;width:100%;height:34px;opacity:0;cursor:pointer;-webkit-appearance:none;appearance:none;background:transparent;margin:0}
+.recx-range:focus-visible{outline:2px solid #1d1c1e;outline-offset:4px;border-radius:17px}
+.recx-pill{position:absolute;left:12px;right:12px;bottom:12px;height:50px;padding:0 5px 0 14px;border-radius:25px;background:#1d1c1e;display:flex;align-items:center;gap:8px;box-sizing:border-box}
+.recx-pill-dot{width:10px;height:10px;border-radius:50%;background:var(--c-rec);flex:none}
+.recx-pill-t{font-size:12px;font-weight:600;color:#F3EBDD;flex:1}
+.recx-pill button{height:38px;padding:0 13px;border-radius:19px;border:1px solid rgba(243,235,221,.35);background:transparent;color:#F3EBDD;font:600 12.5px Inter,sans-serif;cursor:pointer}
+.recx-pill button+button{border:0;background:#F3EBDD;color:#1d1c1e}
+.recx-proc{position:absolute;inset:0;background:rgba(244,242,246,.8);display:flex;align-items:center;justify-content:center}
+.recx-proc[hidden]{display:none}
+.recx-proc-card{width:230px;padding:18px;border-radius:16px;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:10px}
+.recx-proc-card strong{font-size:15px}
+.recx-proc-card p{margin:0;font-size:12px;line-height:1.45;color:#3D3932}
+.recx-shimmer{position:relative;height:6px;border-radius:3px;background:color-mix(in oklch,var(--c-rec),white 85%);overflow:hidden}
+.recx-shimmer::after{content:"";position:absolute;top:0;bottom:0;width:40%;border-radius:3px;background:var(--c-rec);animation:recxShim 1.6s ease-in-out infinite}
+.recx-text{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column}
+.recx-text[hidden]{display:none}
+.recx-ncard{margin:10px;padding:11px 13px;border-radius:14px;background:#F4F2F6;display:flex;flex-direction:column;gap:8px}
+.recx-nhead{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:600;color:#5F5B57}
+.recx-nball{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,color-mix(in oklch,var(--c-sphere),white 45%),var(--c-sphere) 55%,color-mix(in oklch,var(--c-sphere),black 25%))}
+.recx-ncard strong{font-size:12px}
+.recx-nacts{display:flex;gap:7px}
+.recx-nacts span{padding:5px 11px;border-radius:12px;font-size:11.5px;font-weight:600;color:#3D3932;background:#fff}
+.recx-nacts span:first-child{background:color-mix(in oklch,var(--c-rec),white 88%);color:var(--c-rec)}
+.recx-lines{flex:1;overflow:hidden;padding:4px 16px;display:flex;flex-direction:column;gap:8px}
+.recx-lines span{font-size:11px;line-height:1.45}
+.recx-label{display:block;margin-top:10px;font-size:12px;color:#5F5B57;text-align:center}
+.recx-num strong{font-size:64px;font-weight:600;line-height:1;color:var(--c-rec);font-variant-numeric:tabular-nums}
+.recx-num span{font-size:15px;color:#5F5B57;margin-left:10px}
+.recx-tip{padding:14px 16px;border-radius:14px;background:#fff;border:1px solid #ECE8EE;margin:12px 0}
+.recx-tip strong{display:block;font-size:11.5px;color:var(--c-rec);margin-bottom:4px}
+.recx-tip p{margin:0;font-size:13.5px;line-height:1.5}
+.recx-btns{display:flex;flex-wrap:wrap;gap:10px}
+.recx-btns button{height:42px;padding:0 16px;border-radius:21px;border:1px solid #C9C4CC;background:#fff;font:600 13.5px Inter,sans-serif;cursor:pointer}
+.recx-btns button.wide{border:0;background:#1d1c1e;color:#fff;padding:0 20px}
+.recx-btns button[hidden]{display:none}
+@keyframes recxBlink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes recxShim{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion: reduce){.recx-chip::before{animation:none}.recx-shimmer::after{animation:none}}
+</style>
+<style>
+.ui-cols{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-start}
+.ui-left{flex:1 1 260px;max-width:380px}
+.ui-mid{flex:0 0 auto}
+.ui-right{flex:1 1 250px;max-width:380px}
+.ui-btn{cursor:pointer}
+.ui-btn:focus-visible{outline:2px solid #1d1c1e;outline-offset:3px}
+.ui-pillbtn{height:42px;padding:0 16px;border-radius:21px;font:600 13.5px Inter,sans-serif}
+.ui-themes{display:flex;gap:8px;margin:14px 0}
+.ui-list{margin:10px 0 0;padding-left:18px;font-size:14px;line-height:1.5;color:#1d1c1e}
+.ui-list b{font-weight:600}
+.ui-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.ui-act{height:40px;padding:0 14px;border-radius:20px;border:1px solid #C9C4CC;background:#fff;font:600 13px Inter,sans-serif}
+.ui-phone{position:relative;width:330px;height:640px;border-radius:42px;padding:11px;background:#1d1c1e;box-shadow:0 28px 56px rgba(29,28,30,.24);margin:0 auto;box-sizing:border-box}
+.ui-screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;box-sizing:border-box}
+.ui-msgs{display:flex;flex-direction:column;gap:9px;padding:16px 14px;will-change:transform}
+.ui-m{max-width:78%;padding:8px 11px;border-radius:13px;font-size:11px;line-height:1.4}
+.ui-glow{position:absolute;left:96px;top:140px;width:250px;height:250px;border-radius:50%;pointer-events:none}
+.ui-tool,.ui-mini{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-sizing:border-box}
+.ui-pop{animation:uiPop .38s cubic-bezier(.2,.8,.3,1.2) both}
+@keyframes uiPop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+.ui-sphere{position:absolute;left:238px;top:246px;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;touch-action:none;-webkit-user-select:none;user-select:none;box-sizing:border-box}
+.ui-sphere span{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;line-height:1;pointer-events:none}
+.ui-bar{position:absolute;left:30px;right:30px;bottom:98px;height:32px;border-radius:16px;overflow:hidden}
+.ui-barfill{position:absolute;left:0;top:0;bottom:0;width:58%}
+.ui-thumb2{position:absolute;left:142px;bottom:92px;width:52px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;gap:4px;box-sizing:border-box}
+.ui-thumb2 span{width:4px;height:14px;border-radius:1px;background:#fff}
+.ui-pill{position:absolute;left:11px;right:11px;bottom:18px;height:58px;padding:0 7px 0 16px;border-radius:29px;background:#1A1A1A;display:flex;align-items:center;gap:9px;box-sizing:border-box}
+.ui-pill-dot{width:11px;height:11px;border-radius:50%;flex:none}
+.ui-pill-t{flex:1;display:flex;flex-direction:column;min-width:0}
+.ui-pill-t strong{font-size:13px;font-weight:600;color:#F3EBDD}
+.ui-pill-t small{font-size:10.5px;color:#B8AE9C}
+.ui-pill button{height:42px;padding:0 13px;border-radius:21px;border:1px solid rgba(243,235,221,.35);background:transparent;color:#F3EBDD;font:600 12.5px Inter,sans-serif;cursor:pointer}
+.ui-pill button+button{border:0;background:#F3EBDD;color:#1A1A1A}
+.ui-toast{position:absolute;left:36px;right:36px;top:64px;padding:9px 13px;border-radius:12px;background:rgba(26,26,26,.9);color:#F3EBDD;font-size:12.5px;text-align:center;animation:uiToast 1.9s ease both}
+@keyframes uiToast{0%{opacity:0;transform:translateY(6px)}15%{opacity:1;transform:none}85%{opacity:1}100%{opacity:0}}
+.ui-cap{display:block;margin-top:10px;font-size:12px;color:#5F5B57;text-align:center}
+.ui-legend-t{display:block;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5F5B57;margin-bottom:8px}
+.ui-parts{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.ui-parts span{padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600;color:#1d1c1e;border:1px solid rgba(29,28,30,.12);background:#fff}
+.ui-note{font-size:12px;line-height:1.5;color:#6E6973}
+@media (prefers-reduced-motion: reduce){.ui-pop{animation:none}.ui-toast{animation:none}}
 </style>
 </head>
 <body>
@@ -96,73 +251,185 @@
     <p>REC turns what it records into searchable text on your phone; other captures come back as images (Image / Open / Share). Captures and their text are processed on your phone and stay there unless you choose to share. There are no ads, no analytics and no tracking.</p>
   </section>
 
+  <section class="story" id="interface">
+    <h2><span class="g-dot" style="--acc:var(--c-sphere)" aria-hidden="true"></span>The real sphere, right here.</h2>
+    <div class="ui-cols">
+      <div class="ui-left">
+        <span class="recx-eyebrow"><span class="g-dot" style="--acc:var(--c-sphere)" aria-hidden="true"></span>Meet the interface</span>
+        <p>This is Sphere&rsquo;s own interface, drawn from the app&rsquo;s design: the sphere with your initial, its tools, the little popup after a capture, the speed bar and the Cancel/Done bar. Try it the way you would on your phone.</p>
+        <div class="ui-themes" role="group" aria-label="Theme">
+          <button type="button" class="ui-btn ui-pillbtn" id="ui-night" aria-pressed="true">Night desk</button>
+          <button type="button" class="ui-btn ui-pillbtn" id="ui-day" aria-pressed="false">Day &middot; today&rsquo;s colour</button>
+        </div>
+        <ul class="ui-list">
+          <li><b>Double-tap</b> the sphere: the capture popup.</li>
+          <li><b>Press and hold</b>: the tools open around it.</li>
+          <li><b>Tap once</b>: nothing happens, on purpose.</li>
+          <li>While a tool runs: <b>one tap</b> is Done, <b>two taps</b> Cancel.</li>
+        </ul>
+        <div class="ui-actions">
+          <button type="button" class="ui-btn ui-act" id="ui-double">Double-tap</button>
+          <button type="button" class="ui-btn ui-act" id="ui-hold">Press and hold</button>
+          <button type="button" class="ui-btn ui-act" id="ui-reset">Reset</button>
+        </div>
+      </div>
+      <div class="ui-mid">
+        <div class="ui-phone"><div class="ui-screen" id="ui-screen">
+          <div class="ui-msgs" id="ui-msgs" aria-hidden="true"></div>
+          <div class="ui-glow" id="ui-glow" aria-hidden="true"></div>
+          <div id="ui-tools" hidden></div>
+          <div id="ui-popup" hidden></div>
+          <button type="button" class="ui-sphere" id="ui-sphere" aria-label="Sphere: double-tap to capture, press and hold for tools"><span id="ui-letter">Y</span></button>
+          <div id="ui-bar" hidden><div class="ui-bar"><div class="ui-barfill" id="ui-barfill"></div></div><div class="ui-thumb2" id="ui-thumb2"><span></span><span></span></div></div>
+          <div class="ui-pill" id="ui-pill" hidden><span class="ui-pill-dot" id="ui-pill-dot"></span><span class="ui-pill-t"><strong id="ui-pill-t">REC</strong><small id="ui-pill-s">recording</small></span><button type="button" id="ui-cancel">Cancel</button><button type="button" id="ui-done">Done</button></div>
+          <div class="ui-toast" id="ui-toast" role="status" hidden></div>
+        </div></div>
+        <span class="ui-cap">Interactive preview with invented content</span>
+      </div>
+      <div class="ui-right">
+        <span class="ui-legend-t">What you&rsquo;re seeing</span>
+        <h3 id="ui-leg-t" style="margin:0;font-size:22px">The sphere</h3>
+        <p id="ui-leg-x" style="margin:6px 0 0;font-size:14.5px;line-height:1.55;color:#3D3932"></p>
+        <div class="ui-parts" id="ui-parts"></div>
+        <p class="ui-note">Drawn from the app&rsquo;s design boards. The popup&rsquo;s four actions follow the current design; confirm their order against the shipping build before launch.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="story" id="quick-capture">
-    <h2>An instant screenshot, exactly where you drop it.</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-sphere)" aria-hidden="true"></span>An instant screenshot, exactly where you drop it.</h2>
     <p>Double-tap the idle sphere and it takes the screenshot. A single idle tap deliberately does nothing, so a capture never happens by accident. The result appears in a popup with its own actions, staying for about five seconds; a tap outside dismisses it and still reaches the app underneath.</p>
     <p>From there, hand the capture into another app: capture here, switch, drop there.</p>
     <figure class="demo-frame" data-demo="D1">
       <span class="df-title">Demo &middot; Quick capture and handoff</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D1.mp4" poster="assets/anim/D1.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: quick capture and handoff"></video>
+      <span class="df-note">21 seconds. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
   <section class="story">
-    <h2>A whole thread, tap and leave.</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-rescue)" aria-hidden="true"></span>A whole thread, tap and leave.</h2>
     <p>Long-press the sphere and choose Rescue: it scrolls back toward the top of the chat, then captures its way back down while you get on with something else. A Cancel/Done bar stays available throughout, and your phone is kept awake during the run.</p>
-    <p>Sphere hands over exactly what it captured: no rewriting, no summaries. Direct text, which reads the screen through Android's accessibility API instead of the pixels, is optional, experimental, off by default and separately consented.</p>
+    <p>Sphere hands over exactly what it captured: no rewriting, no summaries.</p>
   <figure class="demo-frame" data-demo="D2">
       <span class="df-title">Demo &middot; Rescue chat</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D2.mp4" poster="assets/anim/D2.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: Rescue chat"></video>
+      <span class="df-note">23.5 seconds, partly sped up. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
   <section class="story" id="rec">
-    <h2>REC: record a long thread, keep the words.</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-rec)" aria-hidden="true"></span>REC: record a long thread, keep the words.</h2>
     <p>Long-press the sphere and choose REC. Sphere explains what is about to happen in its own design, then Android asks for screen-recording consent. Recording runs with the sphere, a speed bar and the Cancel/Done bar on screen, and auto-scroll is already running.</p>
     <p>REC is for big captures: long threads and lots of text. The speed bar sets the pace from 0 to 10. The app&rsquo;s own first-use tip recommends speed 10 for faster results on long scroll threads, and notes that slower scrolling means longer processing.</p>
     <p>At speed 0, you scroll yourself while recording continues. The oval thumb holds pause and play: one deliberate tap pauses or resumes scrolling and recording together, and dragging the thumb changes speed. The speed bar can be repositioned like the sphere, with a generous drag area.</p>
     <p>Finish with a single tap (Done) or the Cancel/Done bar. Processing follows as its own phase, with a short sound cue near the end. The result arrives in a notification offering Text / Open / Share.</p>
-    <div class="rec-demo" role="group" aria-label="Try the REC speed control">
-      <label for="rec-speed">Try the speed bar (it sets the pace, 0 to 10)</label>
-      <input type="range" id="rec-speed" min="0" max="10" step="1" value="6">
-      <div class="rec-readout">
-        <span class="rec-speed" id="rec-speed-label" aria-live="polite">Speed 6</span>
-        <span class="rec-note" id="rec-speed-note">Drag the thumb to set the pace while recording continues.</span>
+    <div class="recx" id="recx" role="group" aria-label="Interactive REC illustration with invented content">
+      <div class="recx-cols">
+        <div class="recx-side">
+          <span class="recx-eyebrow"><span class="g-dot" style="--acc:var(--c-rec)" aria-hidden="true"></span>REC &middot; screen recording</span>
+          <ol class="recx-steps" id="recx-steps"></ol>
+        </div>
+        <div class="recx-mid">
+          <div class="recx-phone">
+            <div class="recx-screen">
+              <div class="recx-head"><span>Kitchen plans</span><span class="recx-chip" id="recx-chip">Recording</span></div>
+              <div class="recx-scroll" id="recx-scroll" tabindex="0" aria-label="The thread being recorded. At speed 0, scroll it with your wheel.">
+                <div class="recx-msgs" id="recx-msgs"></div>
+              </div>
+              <div class="recx-ball" id="recx-ball" aria-hidden="true"></div>
+              <div class="recx-manual" id="recx-manual" hidden>Speed 0: you scroll by hand. Recording carries on.</div>
+              <div class="recx-bar" id="recx-bar">
+                <div class="recx-track">
+                  <div class="recx-fill" id="recx-fill"></div>
+                  <div class="recx-thumb" id="recx-thumb"><span></span><span></span></div>
+                </div>
+                <input type="range" class="recx-range" id="recx-speed" min="0" max="10" step="1" value="5" aria-label="REC speed, 0 to 10">
+              </div>
+              <div class="recx-pill" id="recx-pill"><span class="recx-pill-dot" aria-hidden="true"></span><span class="recx-pill-t">REC</span>
+                <button type="button" id="recx-cancel">Cancel</button><button type="button" id="recx-done">Done</button>
+              </div>
+              <div class="recx-proc" id="recx-proc" hidden>
+                <div class="recx-proc-card"><strong>Processing</strong><p>Recording is finished. Reading the words is its own step, on the phone. A short sound plays near the end.</p><div class="recx-shimmer" aria-hidden="true"></div></div>
+              </div>
+              <div class="recx-text" id="recx-text" hidden>
+                <div class="recx-ncard">
+                  <div class="recx-nhead"><span class="recx-nball" aria-hidden="true"></span><span>Sphere &middot; REC</span></div>
+                  <strong>Kitchen renovation: tiles, budget and dates</strong>
+                  <div class="recx-nacts"><span>Text</span><span>Open</span><span>Share</span></div>
+                </div>
+                <div class="recx-lines" id="recx-lines"></div>
+              </div>
+            </div>
+          </div>
+          <span class="recx-label">Illustration with invented content. Not real speed.</span>
+        </div>
+        <div class="recx-try">
+          <div class="recx-num"><strong id="recx-num" aria-live="polite">5</strong><span id="recx-num-l">speed, 0 to 10</span></div>
+          <p>Drag the oval thumb to change the pace. Tap it once to pause or resume. Take it to 0 and scroll the thread yourself; the recording keeps going.</p>
+          <div class="recx-tip"><strong>From the app&rsquo;s own first-use tip</strong><p>Speed 10 gives faster results on long scrolling threads. Slower scrolling means longer processing.</p></div>
+          <div class="recx-btns" id="recx-btns"></div>
+        </div>
       </div>
-      <button type="button" class="btn rec-pause" id="rec-pause">Pause</button>
     </div>
     <figure class="demo-frame" data-demo="D3">
       <span class="df-title">Demo &middot; REC, the priority animation</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D3.mp4" poster="assets/anim/D3.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: REC, screen recording"></video>
+      <span class="df-note">35 seconds, partly sped up. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
   <section class="story" id="three-ways">
     <h2>Three ways down a page.</h2>
     <p>Three different tools share the same scroll, so here they are side by side.</p>
-    <div class="ways">
-      <div class="way">
-        <h3>Auto-scroll</h3>
-        <p>Scrolls the page hands-free and captures nothing: a reading aid. Choose it from the long-press menu.</p>
+    <div class="tw-grid">
+      <div class="tw-card" style="--acc:var(--c-scroll)">
+        <div class="tw-head"><h3>Auto-scroll</h3><span class="tw-ball" aria-hidden="true"></span></div>
+        <div class="tw-art" aria-hidden="true">
+          <div class="tw-phone"><div class="tw-l" style="width:88%"></div><div class="tw-l" style="width:70%"></div><div class="tw-l" style="width:84%"></div><div class="tw-l" style="width:60%"></div><div class="tw-l" style="width:88%"></div><div class="tw-l" style="width:66%"></div><div class="tw-l" style="width:80%"></div><div class="tw-l" style="width:52%"></div><div style="position:absolute;right:6px;top:34px;bottom:26px;width:3px;border-radius:2px;background:var(--c-scroll)"></div><div style="position:absolute;right:1px;bottom:14px;width:13px;height:13px;border-right:3px solid var(--c-scroll);border-bottom:3px solid var(--c-scroll);transform:rotate(45deg)"></div></div>
+          <svg width="34" height="20" viewBox="0 0 34 20"><path d="M2 10 H28 M22 4 L29 10 L22 16" fill="none" stroke="#1d1c1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="width:84px;height:110px;border-radius:11px;border:2px dashed #A39EA8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#6E6973;text-align:center">Nothing<br>saved</div>
+        </div>
+        <dl class="tw-dl"><dt>Start</dt><dd>Long-press, choose Auto-scroll</dd><dt>Moves</dt><dd>Scrolls the page for you</dd><dt>Saves</dt><dd>Nothing. It is a reading aid.</dd><dt>Use it for</dt><dd>Reading a long page without your thumb</dd></dl>
       </div>
-      <div class="way">
-        <h3>Auto capture</h3>
-        <p>Drag the sphere onto its bottom target and a stitched long screenshot builds itself, hands-free. The sphere returns to where it was last parked.</p>
+      <div class="tw-card" style="--acc:var(--c-sphere)">
+        <div class="tw-head"><h3>Auto capture</h3><span class="tw-ball" aria-hidden="true"></span></div>
+        <div class="tw-art" aria-hidden="true">
+          <div class="tw-phone"><div class="tw-l" style="width:88%"></div><div class="tw-l" style="width:70%"></div><div class="tw-l" style="width:84%"></div><div class="tw-l" style="width:60%"></div><div class="tw-l" style="width:88%"></div><div class="tw-l" style="width:66%"></div><div class="tw-l" style="width:80%"></div><div class="tw-l" style="width:52%"></div><div style="position:absolute;right:6px;top:34px;bottom:26px;width:3px;border-radius:2px;background:var(--c-sphere)"></div><div style="position:absolute;right:1px;bottom:14px;width:13px;height:13px;border-right:3px solid var(--c-sphere);border-bottom:3px solid var(--c-sphere);transform:rotate(45deg)"></div></div>
+          <svg width="34" height="20" viewBox="0 0 34 20"><path d="M2 10 H28 M22 4 L29 10 L22 16" fill="none" stroke="#1d1c1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="width:56px;display:flex;flex-direction:column;gap:2px"><div style="height:40px;border-radius:6px 6px 1px 1px;background:var(--c-sphere);opacity:.9"></div><div style="height:40px;background:var(--c-sphere);opacity:.7"></div><div style="height:40px;background:var(--c-sphere);opacity:.55"></div><div style="height:40px;border-radius:1px 1px 6px 6px;background:var(--c-sphere);opacity:.4"></div></div>
+        </div>
+        <dl class="tw-dl"><dt>Start</dt><dd>Drag the sphere onto its bottom target</dd><dt>Moves</dt><dd>Scrolls and stitches as it goes; the sphere then returns to its spot</dd><dt>Saves</dt><dd>One long, stitched screenshot</dd><dt>Use it for</dt><dd>A long page you want as a picture</dd></dl>
       </div>
-      <div class="way">
-        <h3>REC</h3>
-        <p>Records the page as it goes, then gives you the text.</p>
+      <div class="tw-card" style="--acc:var(--c-rec)">
+        <div class="tw-head"><h3>REC</h3><span class="tw-ball" aria-hidden="true"></span></div>
+        <div class="tw-art" aria-hidden="true">
+          <div class="tw-phone"><div class="tw-l" style="width:88%"></div><div class="tw-l" style="width:70%"></div><div class="tw-l" style="width:84%"></div><div class="tw-l" style="width:60%"></div><div class="tw-l" style="width:88%"></div><div class="tw-l" style="width:66%"></div><div class="tw-l" style="width:80%"></div><div class="tw-l" style="width:52%"></div><div style="position:absolute;right:6px;top:34px;bottom:26px;width:3px;border-radius:2px;background:var(--c-rec)"></div><div style="position:absolute;right:1px;bottom:14px;width:13px;height:13px;border-right:3px solid var(--c-rec);border-bottom:3px solid var(--c-rec);transform:rotate(45deg)"></div></div>
+          <svg width="34" height="20" viewBox="0 0 34 20"><path d="M2 10 H28 M22 4 L29 10 L22 16" fill="none" stroke="#1d1c1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:64px;height:38px;border-radius:6px;border:3px solid var(--c-rec);display:flex;justify-content:space-around;align-items:center;padding:0 4px"><span style="width:7px;height:7px;border-radius:2px;background:var(--c-rec)"></span><span style="width:7px;height:7px;border-radius:2px;background:var(--c-rec)"></span><span style="width:7px;height:7px;border-radius:2px;background:var(--c-rec)"></span></div><svg width="14" height="16" viewBox="0 0 14 16"><path d="M7 1 V13 M2 9 L7 14 L12 9" fill="none" stroke="#1d1c1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div style="width:64px;height:50px;border-radius:6px;background:#fff;border:2px solid #1d1c1e;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:19px">Aa</div></div>
+        </div>
+        <dl class="tw-dl"><dt>Start</dt><dd>Long-press, choose REC, accept Android&rsquo;s consent</dd><dt>Moves</dt><dd>Auto-scroll at your pace, 0 to 10, or by hand at 0</dd><dt>Saves</dt><dd>A recording, then its words as text</dd><dt>Use it for</dt><dd>Long, text-dense threads</dd></dl>
       </div>
     </div>
     <p>Auto-scroll captures nothing. Auto capture makes a long screenshot. REC records, then gives text.</p>
     <figure class="demo-frame" data-demo="D4 D5">
       <span class="df-title">Demo &middot; Auto capture and Auto-scroll</span>
-      <span class="df-note">Animated demos in production; these frames are where they land.</span>
+      <div class="df-vids"><video class="df-vid" src="assets/anim/D4.mp4" poster="assets/anim/D4.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: Auto capture"></video><video class="df-vid" src="assets/anim/D5.mp4" poster="assets/anim/D5.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: Auto-scroll"></video></div>
+      <span class="df-note">Two demos, 20 and 15.5 seconds; Auto capture is partly sped up.s in production; these frames are where they land.</span>
     </figure>
   </section>
 
   <section class="story" id="controls">
-    <h2>Every tap is deliberate.</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-sphere)" aria-hidden="true"></span>Every tap is deliberate.</h2>
+    <p class="gk-lead">The same glyphs mark each section and sit in the corner of every demo, so a visitor learns the app with the sound off.</p>
+    <div class="g-grid">
+      <div class="g-card"><svg aria-hidden="true" width="110" height="66" viewBox="0 0 64 40" style="color:var(--c-sphere)"><circle cx="22" cy="20" r="10" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.4"/><circle cx="42" cy="20" r="10" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.4"/><circle cx="22" cy="20" r="5.5" fill="currentColor"/><circle cx="42" cy="20" r="5.5" fill="currentColor"/></svg><h3>Double-tap the idle sphere</h3><p>Takes a screenshot. A single idle tap does nothing, on purpose.</p><small>A light haptic tick when the first tap registers</small></div>
+      <div class="g-card"><svg aria-hidden="true" width="110" height="66" viewBox="0 0 64 40" style="color:var(--c-sphere)"><circle cx="32" cy="20" r="17" fill="none" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.4"/><circle cx="32" cy="20" r="11.5" fill="none" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.4"/><circle cx="32" cy="20" r="6" fill="currentColor"/></svg><h3>Long-press</h3><p>Opens the tools: Rescue, REC and Auto-scroll, with settings and Close.</p><small>Tools splash around the sphere</small></div>
+      <div class="g-card"><svg aria-hidden="true" width="110" height="66" viewBox="0 0 64 40" style="color:var(--c-sphere)"><circle cx="12" cy="20" r="6" fill="currentColor"/><path d="M21 20 H40" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/><path d="M38 16 L43 20 L38 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="53" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 2.5"/></svg><h3>Drag onto the bottom target</h3><p>Starts Auto capture, a hands-free stitched long screenshot. The sphere goes back to where it was parked.</p><small>Not REC, not Auto-scroll</small></div>
+      <div class="g-card"><svg aria-hidden="true" width="110" height="66" viewBox="0 0 64 40" style="color:var(--c-rec)"><path d="M8 34 H56" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 5"/><circle cx="32" cy="17" r="10" fill="none" stroke="#2F7A55" stroke-opacity="0.4" stroke-width="1.4"/><circle cx="32" cy="17" r="5.5" fill="#2F7A55"/></svg><h3>One tap, while running</h3><p>Done. Finishes Rescue, Auto capture or REC.</p><small>Its own Done feedback</small></div>
+      <div class="g-card"><svg aria-hidden="true" width="110" height="66" viewBox="0 0 64 40" style="color:var(--c-rec)"><path d="M8 34 H56" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 5"/><circle cx="22" cy="17" r="10" fill="none" stroke="#8A3B2E" stroke-opacity="0.4" stroke-width="1.4"/><circle cx="42" cy="17" r="10" fill="none" stroke="#8A3B2E" stroke-opacity="0.4" stroke-width="1.4"/><circle cx="22" cy="17" r="5.5" fill="#8A3B2E"/><circle cx="42" cy="17" r="5.5" fill="#8A3B2E"/></svg><h3>Two taps, while running</h3><p>Cancel. Stops and discards.</p><small>Its own Cancel feedback, so a misread tap never costs work</small></div>
+      <div class="g-card"><svg aria-hidden="true" width="110" height="66" viewBox="0 0 64 40" style="color:var(--c-rec)"><rect x="4" y="17" width="56" height="6" rx="3" fill="currentColor" fill-opacity="0.25"/><rect x="4" y="17" width="34" height="6" rx="3" fill="currentColor"/><rect x="27" y="11" width="22" height="18" rx="9" fill="#FFFFFF" stroke="currentColor" stroke-width="1.6"/><rect x="34.5" y="16" width="2.4" height="8" rx="1" fill="currentColor"/><rect x="39.2" y="16" width="2.4" height="8" rx="1" fill="currentColor"/></svg><h3>Drag the thumb &middot; tap it</h3><p>Drag sets REC speed from 0 to 10. One deliberate tap pauses or resumes scrolling and recording together.</p><small>The bar can be moved, like the sphere</small></div>
+    </div>
     <ul class="key">
       <li><b>Idle:</b> double-tap captures; a single tap does nothing.</li>
       <li><b>Long-press:</b> the tools: Rescue, REC, Auto-scroll and Tools.</li>
@@ -174,29 +441,32 @@
   </section>
 
   <section class="story" id="results">
-    <h2>Your captures, your folder.</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-tools)" aria-hidden="true"></span>Your captures, your folder.</h2>
     <p>Results arrive as notifications with actions: REC captures offer Text / Open / Share; other captures offer Image / Open / Share. The notification shade is always the fallback route back to a capture.</p>
     <p>Captures save as ordinary files in Download/Sphere, one subfolder per account, with titles drawn from what is in them rather than date stamps. Files already on your phone are never moved or deleted by the app.</p>
     <p>Sphere does not rewrite or summarise what it captures. Handing a capture to another app is always your own deliberate act.</p>
+    <p>Direct text, which reads the screen through Android's accessibility API instead of the pixels, is optional, experimental, off by default and separately consented.</p>
     <figure class="demo-frame" data-demo="D6">
       <span class="df-title">Demo &middot; Results and handoff</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D6.mp4" poster="assets/anim/D6.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: results and handoff"></video>
+      <span class="df-note">20 seconds. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
   <section class="story" id="account">
-    <h2>Signed in, and yours.</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-sphere)" aria-hidden="true"></span>Signed in, and yours.</h2>
     <p>Sign-in is required before capturing: email and password, or Google. Sign-in runs through Firebase Authentication, a Google service. After the first sign-in, one small card asks what to call you, once, with your Google name prefilled where available and editable later in Settings.</p>
     <p>That name supplies the sphere&rsquo;s initial, drawn as a serif letterform, brass on Night desk. Your captures save under your account&rsquo;s own subfolder in Download/Sphere.</p>
     <p>Signing out or deleting your account stops the sphere and new captures; capture files already on your phone stay. Deletion lives in Settings and is also honoured by email.</p>
     <figure class="demo-frame" data-demo="D7">
       <span class="df-title">Demo &middot; Account and personalisation</span>
-      <span class="df-note">Animated demo in production; this frame is where it lands.</span>
+      <video class="df-vid" src="assets/anim/D7.mp4" poster="assets/anim/D7.jpg" muted loop playsinline preload="none" aria-label="Sphere demo animation: account and personalisation"></video>
+      <span class="df-note">19.5 seconds. in production; this frame is where it lands.</span>
     </figure>
   </section>
 
   <section class="story">
-    <h2>A new colour every day</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-sphere)" aria-hidden="true"></span>A new colour every day</h2>
     <p>Day theme is generated, not chosen from a set. The sphere's colour comes from the day of the year: its hue is the day number times the golden angle (137.50776 degrees), drawn in OKLCH, so each of the 365 days of the year has its own colour. No two days look the same, and the same date looks the same every year.</p>
     <p>Night desk is a fixed material set: emerald cased glass and polished brass, like a banker's lamp on a dark desk. It never changes by day. The dial above shows today's palette at the shell's real offsets: Rescue 120 degrees away, Auto-scroll 240, the record button 300, Tools the complement at 180, softened.</p>
   </section>
@@ -207,7 +477,7 @@
   </section>
 
   <section class="story" id="join">
-    <h2>Join the list</h2>
+    <h2><span class="g-dot" style="--acc:var(--c-sphere)" aria-hidden="true"></span>Join the list</h2>
     <p>One email at launch, then the list is deleted. <a href="waitlist-notice/">How the address is handled</a>.</p>
     <form class="wl" id="wl-join" data-source="home">
       <input type="email" name="email" required placeholder="you@example.com" aria-label="Your email address" autocomplete="email">
@@ -215,7 +485,7 @@
       <button class="btn" type="submit">Join the list</button>
       <p class="state" aria-live="polite"></p>
     </form>
-    <p class="meta">Coming soon to Google Play.</p>
+    <p class="meta">Coming soon to Google Play. Android 11 or later.</p>
   </section>
 </main>
 <footer class="site-foot">
@@ -242,5 +512,166 @@
 </script>
 <script src="assets/js/sphere.js" defer>
 <script src="assets/js/today.js" defer></script>
+<script>
+(function(){
+// ---------- shared ----------
+var now=new Date(),yr=now.getFullYear();
+var doy=Math.round((new Date(yr,now.getMonth(),now.getDate())-new Date(yr,0,1))/864e5)+1;
+var hue=(doy*137.50776)%360;
+var nh=function(h){return (((h%360)+360)%360).toFixed(1);};
+var ok=function(l,c,h){return 'oklch('+l+' '+c+' '+nh(h)+')';};
+var ball=function(h){return 'radial-gradient(circle at 35% 30%,'+ok(0.93,0.07,h)+' 0%,'+ok(0.72,0.16,h)+' 45%,'+ok(0.52,0.13,h)+' 100%)';};
+
+// ---------- REC (board C) ----------
+var REC_BASE=[['Mira','Measured the wall again: 3.4 m from the window to the corner, so the long run of cabinets fits if we lose the narrow shelf.'],['Tom','Fine by me. Can the tiles go up to the ceiling behind the hob, or only to the extractor? The quote assumed the extractor.'],['Mira','Up to the ceiling looks calmer. It adds about two boxes. I asked the shop to hold the matte green ones until Friday.'],['Tom','Then the electrician should come before the tiler, not after. Sockets move 20 cm left, plus one by the window.'],['Mira','Agreed. Order is: electrics, plaster, tiles, worktop. The worktop needs templating once the cabinets are fixed.'],['Tom','Templating is a separate visit, about a week before fitting. I will ask whether they can do a Saturday.'],['Mira','Budget check: cabinets and worktop are within the plan, tiles slightly over, lighting not priced yet.'],['Tom','Let us keep the pendant we already have and add strip lights under the wall units. Cheaper and easier to clean.'],['Mira','Good. Sink stays where it is so the plumbing does not move. That saves a day and a lot of dust.'],['Tom','Dates: electrics on the 3rd, plaster dries over the weekend, tiles from the 8th. Worktop the week after.'],['Mira','I will write all of this on the fridge too. And we need somewhere to cook for two weeks: the camping stove?'],['Tom','Camping stove on the balcony, kettle in the living room. We have survived worse. Sending the tile order now.']];
+var rS={phase:'rec',speed:5,paused:false,offset:0};
+var $=function(id){return document.getElementById(id);};
+var msgsEl=$('recx-msgs');
+if(msgsEl){
+  var loopH=REC_BASE.length*84;
+  msgsEl.innerHTML=REC_BASE.concat(REC_BASE).map(function(m,i){return '<div style="display:flex;justify-content:'+(m[0]==='Tom'?'flex-end':'flex-start')+'"><div class="recx-m'+(m[0]==='Tom'?' them':'')+'"><b>'+m[0]+'</b>'+m[1]+'</div></div>';}).join('');
+  $('recx-lines').innerHTML=REC_BASE.slice(0,9).map(function(m){return '<span><b>'+m[0]+':</b> '+m[1]+'</span>';}).join('');
+  var STEPS=['Long-press the sphere, choose REC','Sphere explains, then Android asks for consent','Recording starts; auto-scroll is already running','Set the pace on the speed bar, 0 to 10','Finish with one tap, or Done on the bar','Processing, as its own step','The words, kept as text'];
+  function recRender(){
+    var active=rS.phase==='rec'?[3,4]:rS.phase==='proc'?[6]:[7];
+    var done=rS.phase==='rec'?2:rS.phase==='proc'?5:6;
+    $('recx-steps').innerHTML=STEPS.map(function(t,i){var n=i+1;return '<li class="'+(active.indexOf(n)>=0?'on':'')+'">'+t+'</li>';}).join('');
+    $('recx-bar').hidden=$('recx-pill').hidden=$('recx-ball').hidden=(rS.phase!=='rec');
+    $('recx-proc').hidden=(rS.phase!=='proc');
+    $('recx-text').hidden=(rS.phase!=='text');
+    var manual=rS.phase==='rec'&&rS.speed===0;
+    $('recx-manual').hidden=!manual;
+    $('recx-chip').textContent=rS.paused?'Paused':'Recording';
+    $('recx-chip').classList.toggle('paused',rS.paused);
+    $('recx-num').textContent=rS.speed;
+    $('recx-num-l').textContent='speed, 0 to 10'+(rS.paused?' \u00b7 paused':'');
+    var b=$('recx-btns');
+    if(rS.phase==='rec'){b.innerHTML='';var p=document.createElement('button');p.type='button';p.textContent=rS.paused?'Resume':'Pause';p.onclick=function(){rS.paused=!rS.paused;recApply();recRender();};b.appendChild(p);
+      if(manual){[['\u2191',-84],['\u2193',84]].forEach(function(d){var sb=document.createElement('button');sb.type='button';sb.textContent=d[0];sb.setAttribute('aria-label',d[0]==='\u2191'?'Scroll the thread up':'Scroll the thread down');sb.onclick=function(){rS.offset+=d[1];recApply();};b.appendChild(sb);});}}
+    else if(rS.phase==='proc'){b.innerHTML='<button type="button" class="wide" id="recx-next">See the result</button>';$('recx-next').onclick=function(){rS.phase='text';recRender();};}
+    else{b.innerHTML='<button type="button" class="wide" id="recx-again">Start again</button>';$('recx-again').onclick=function(){rS.phase='rec';rS.speed=5;rS.paused=false;rS.offset=0;$('recx-speed').value=5;recRender();recApply();};}
+    recApply();
+  }
+  function recApply(){
+    var sh=((rS.offset%loopH)+loopH)%loopH;
+    $('recx-msgs').style.transform='translateY(-'+sh.toFixed(1)+'px)';
+    var pct=rS.speed/10;
+    $('recx-fill').style.width='calc((100% - 48px) * '+pct+' + 24px)';
+    $('recx-thumb').style.left='calc((100% - 48px) * '+pct+')';
+    $('recx-thumb').classList.toggle('paused',rS.paused);
+  }
+  setInterval(function(){if(rS.phase==='rec'&&!rS.paused&&rS.speed>0){rS.offset+=rS.speed*0.9;recApply();}},40);
+  $('recx-speed').addEventListener('input',function(){rS.speed=Number(this.value);recRender();});
+  var rDown=null;
+  $('recx-speed').addEventListener('pointerdown',function(e){rDown={x:e.clientX,v:rS.speed};});
+  $('recx-speed').addEventListener('pointerup',function(e){
+    var d=rDown;rDown=null;
+    if(!d||Math.abs(e.clientX-d.x)>5||rS.speed!==d.v)return;
+    var r=this.getBoundingClientRect();
+    var cx=r.left+(r.width-48)*(rS.speed/10)+24;
+    if(Math.abs(e.clientX-cx)<=26){rS.paused=!rS.paused;recRender();}
+  });
+  $('recx-scroll').addEventListener('wheel',function(e){if(rS.phase==='rec'&&rS.speed===0){rS.offset+=e.deltaY*0.6;recApply();e.preventDefault();}},{passive:false});
+  $('recx-done').onclick=function(){rS.phase='proc';recRender();};
+  $('recx-cancel').onclick=function(){rS.phase='rec';rS.paused=false;rS.offset=0;recRender();recApply();};
+  recRender();
+}
+
+// ---------- Meet the interface (board F) ----------
+var I_BASE=['Can you send the tile sizes again?','Sure: 10 by 30, matte, laid in a straight stack.','And the grout colour?','Warm grey, the sample on the left.','Electrician is booked for the 3rd.','Then plaster, then tiles from the 8th.','Worktop templating once the cabinets are in.','I will ask about a Saturday visit.','Keep the old pendant light?','Yes, plus strips under the wall units.','Sink stays where it is.','Good, no new plumbing.','Camping stove on the balcony for two weeks?','We have survived worse.'];
+var ui=$('ui-sphere');
+if(ui){
+  var iS={theme:'night',mode:'idle',toast:'',offset:0,held:false,count:0};
+  var loopI=I_BASE.length*48;
+  var LM={idle:['The sphere','It floats over your other apps and carries your initial. Park it anywhere. In Day it takes the day\u2019s colour; in Night desk it is emerald glass and brass.',['Sphere','Initial','Glow']],popup:['After a capture','A double-tap takes a screenshot and four small buttons appear beside the sphere for about five seconds. Tap outside and they go, and your tap still reaches the app underneath.',['Image','Text','Open','Share']],tools:['The tools','Press and hold, and the tools open around the sphere: settings, Rescue, REC and Auto-scroll, with Close beneath. Pick one.',['Settings','Rescue','REC','Auto-scroll','Close']],rec:['REC is running','The speed bar sets the pace from 0 to 10; its oval thumb pauses and resumes. The Cancel/Done bar finishes, or tap the sphere once.',['Speed bar','Pause thumb','Cancel/Done bar']],rescue:['Rescue is running','Sphere heads back toward the top of the chat and captures its way down while you do something else. Done or Cancel stays in reach.',['Cancel/Done bar']],scroll:['Auto-scroll is running','The page scrolls for you, for reading. Nothing is captured. Tap the sphere once to stop.',['Speed bar']]};
+  var gold='radial-gradient(circle at 35% 30%,#FBEBC0 0%,#E9C878 45%,#B8924A 100%)';
+  var emer='radial-gradient(circle at 35% 30%,#4FC994 0%,#17865A 45%,#0A4D33 100%)';
+  var nightBall='radial-gradient(circle at 34% 28%,#A8F2CF 0%,#1C9A68 38%,#05291B 100%)';
+  $('ui-msgs').innerHTML=I_BASE.concat(I_BASE).map(function(t,i){return '<div style="display:flex;justify-content:'+(i%2?'flex-end':'flex-start')+'"><div class="ui-m" id="um'+i+'">'+t+'</div></div>';}).join('');
+  function say(t){clearTimeout(say.t);$('ui-toast').textContent=t;$('ui-toast').hidden=false;clearTimeout(say.x);say.x=setTimeout(function(){$('ui-toast').hidden=true;},1900);}
+  function setMode(m){clearTimeout(setMode.p);iS.mode=m;uiRender();if(m==='popup')setMode.p=setTimeout(function(){if(iS.mode==='popup'){iS.mode='idle';uiRender();}},5000);}
+  function taps(n){var m=iS.mode;var running=m==='rec'||m==='rescue'||m==='scroll';
+    if(running){if(n===1){setMode('idle');say('Done. Saved to Download/Sphere.');}else{setMode('idle');say('Cancelled. Nothing kept.');}return;}
+    if(m==='tools'){setMode('idle');return;}
+    if(n>=2){setMode('popup');return;}
+    say('A single tap does nothing, on purpose.');}
+  function uiRender(){
+    var night=iS.theme==='night',m=iS.mode,running=m==='rec'||m==='rescue'||m==='scroll';
+    var scr=$('ui-screen');scr.style.background=night?'#151816':'#F4F2F6';
+    for(var i=0;i<I_BASE.length*2;i++){var el=$('um'+i);if(el){el.style.background=night?(i%2?'#2A2F2C':'#1E2220'):(i%2?'#E7E3EA':'#FFFFFF');el.style.color=night?'#E9E4DA':'#1d1c1e';}}
+    $('ui-glow').style.background=night?'radial-gradient(circle,rgba(232,184,106,.26) 0%,rgba(232,184,106,0) 65%)':'radial-gradient(circle,'+ok(0.8,0.12,hue)+' 0%,rgba(255,255,255,0) 65%)';
+    var sb=$('ui-sphere');sb.style.background=night?nightBall:ball(hue);sb.style.border=night?'3px solid #C9A45C':'1.5px solid '+ok(0.62,0.12,hue);sb.style.boxShadow=night?'0 0 24px 6px rgba(232,184,106,.28), inset -6px -8px 14px rgba(0,0,0,.4)':'0 0 22px 6px '+ok(0.8,0.12,hue)+' / .45, inset -6px -8px 14px rgba(0,0,0,.15)';
+    sb.setAttribute('aria-label',running?'Sphere: tap once for Done, twice for Cancel':'Sphere: double-tap to capture, press and hold for tools');
+    $('ui-letter').style.color=night?'#D9B56E':ok(0.4,0.12,hue);
+    var rim=night?'#C9A45C':'rgba(29,28,30,.12)';
+    var tools=$('ui-tools');
+    if(m==='tools'){
+      var mk=function(l,t,bg,ic,fn){return '<button type="button" class="ui-tool ui-pop ui-btn" data-fn="'+fn+'" aria-label="'+l+'" style="left:'+t[0]+'px;top:'+t[1]+'px;width:'+t[2]+'px;height:'+t[3]+'px;border:2px solid '+rim+';background:'+bg+'">'+ic+'</button>';};
+      var icSet='<svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 5 H14 M2 11 H14" stroke="#2A2418" stroke-width="1.6" stroke-linecap="round"/><circle cx="10" cy="5" r="2.2" fill="currentColor" stroke="#2A2418" stroke-width="1.6"/><circle cx="6" cy="11" r="2.2" fill="currentColor" stroke="#2A2418" stroke-width="1.6"/></svg>';
+      var icRes='<svg width="18" height="18" viewBox="0 0 16 16"><path d="M3 2.5 H13 M8 14 V5.5 M4.5 9 L8 5.5 L11.5 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var icRec='<svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="#FFFFFF" stroke="#2A2418" stroke-width="1.2"/><circle cx="10" cy="10" r="4.6" fill="#E0353B"/></svg>';
+      var icScr='<svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 3.5 L8 7.5 L12 3.5 M4 8.5 L8 12.5 L12 8.5" fill="none" stroke="#2A2418" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var icX='<svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 3 L11 11 M11 3 L3 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+      tools.innerHTML=mk('Settings',[176,196,40,32],night?gold:'#FFFFFF',night?'#B8924A':'#FFFFFF','noop')
+        +mk('Rescue chat',[150,246,62,50],night?emer:ball(hue+120),night?'#FFFFFF':'#1d1c1e','rescue')
+        +mk('REC, screen recording',[168,314,50,40],night?gold:ball(hue+300),'#FFFFFF','rec')
+        +mk('Auto-scroll',[206,374,50,40],night?gold:ball(hue+240),'#FFFFFF','scroll')
+        +mk('Close',[254,318,40,32],night?'#1E1E1C':'#FFFFFF',night?'#F3EBDD':'#1d1c1e','close');
+      tools.hidden=false;
+    }else{tools.hidden=true;tools.innerHTML='';}
+    var pop=$('ui-popup');
+    if(m==='popup'){
+      var miBg=night?gold:ball(hue+180,0,0);miBg=night?gold:ok(0.88,0.07,hue+180);
+      var mk2=function(t,ic){return '<button type="button" class="ui-mini ui-pop ui-btn" tabindex="-1" aria-label="'+t+'" style="left:'+t[1]+'px;top:'+t[2]+'px;width:40px;height:32px;border:2px solid '+(night?'#C9A45C':'rgba(29,28,30,.1)')+';background:'+miBg+'">'+ic+'</button>';};
+      var i1='<svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5" fill="none" stroke="#2A2418" stroke-width="1.5"/><path d="M3 12 L6.5 8 L9 10.5 L11 8.5 L13 11" fill="none" stroke="#2A2418" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+      var i2='<svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 4.5 H13 M3 8 H13 M3 11.5 H10" stroke="#2A2418" stroke-width="1.6" stroke-linecap="round"/></svg>';
+      var i3='<svg width="16" height="16" viewBox="0 0 16 16"><path d="M7 3 H3.5 A1 1 0 0 0 2.5 4 V12.5 A1 1 0 0 0 3.5 13.5 H12 A1 1 0 0 0 13 12.5 V9 M9 2.5 H13.5 V7 M13.5 2.5 L7.5 8.5" fill="none" stroke="#2A2418" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var i4='<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="4" cy="8" r="2" fill="#2A2418"/><circle cx="12" cy="3.5" r="2" fill="#2A2418"/><circle cx="12" cy="12.5" r="2" fill="#2A2418"/><path d="M5.8 7 L10.2 4.5 M5.8 9 L10.2 11.5" stroke="#2A2418" stroke-width="1.4"/></svg>';
+      pop.innerHTML=mk2('Image',[214,200],0,i1)+mk2('Text',[186,246],0,i2)+mk2('Open',[180,296],0,i3)+mk2('Share',[204,346],0,i4);
+      pop.hidden=false;
+    }else{pop.hidden=true;pop.innerHTML='';}
+    $('ui-bar').hidden=!(m==='rec'||m==='scroll');
+    var recC=ok(0.66,0.17,hue+300);
+    $('ui-barfill').style.background=night?'linear-gradient(90deg,#8C6B33,#E3C27E)':recC;
+    var bar=$('ui-bar').querySelector('.ui-bar');bar.style.background=night?'#1A1714':'rgba(255,255,255,.94)';bar.style.border='1.5px solid '+rim;
+    var th=$('ui-thumb2');th.style.background=night?emer:ball(hue+300);th.style.border='2px solid '+rim;th.style.boxShadow='0 0 16px '+(night?'rgba(232,184,106,.45)':'rgba(0,0,0,.15)');
+    $('ui-pill').hidden=!(m==='rec'||m==='rescue');
+    var pill=m==='rec'?['REC','recording','#E0353B']:['Rescue chat','auto-scrolling','#E9A23B'];
+    $('ui-pill-t').textContent=pill[0];$('ui-pill-s').textContent=pill[1];$('ui-pill-dot').style.background=pill[2];
+    var lg=LM[m]||LM.idle;
+    $('ui-leg-t').textContent=lg[0];$('ui-leg-x').textContent=lg[1];
+    $('ui-parts').innerHTML=lg[2].map(function(nm){return '<span>'+nm+'</span>';}).join('');
+    $('ui-night').setAttribute('aria-pressed',night?'true':'false');$('ui-day').setAttribute('aria-pressed',night?'false':'true');
+    $('ui-night').style.cssText=night?'background:#1d1c1e;color:#F3EBDD;border-color:#1d1c1e':'background:#fff;color:#1d1c1e;border-color:#C9C4CC';
+    $('ui-day').style.cssText=night?'background:#fff;color:#1d1c1e;border-color:#C9C4CC':'background:#1d1c1e;color:#fff;border-color:#1d1c1e';
+  }
+  setInterval(function(){if(iS.mode==='rec'||iS.mode==='rescue'||iS.mode==='scroll'){iS.offset+=2.2;var sh=((iS.offset%loopI)+loopI)%loopI;$('ui-msgs').style.transform='translateY(-'+sh.toFixed(1)+'px);';$('ui-msgs').style.transform='translateY(-'+sh.toFixed(1)+'px)';}},40);
+  ui.addEventListener('pointerdown',function(){iS.held=false;clearTimeout(ui.hT);ui.hT=setTimeout(function(){iS.held=true;setMode('tools');},500);});
+  ui.addEventListener('pointerup',function(){clearTimeout(ui.hT);});
+  ui.addEventListener('pointerleave',function(){clearTimeout(ui.hT);});
+  ui.addEventListener('click',function(){if(iS.held){iS.held=false;return;}iS.count=(iS.count||0)+1;clearTimeout(ui.tT);ui.tT=setTimeout(function(){var n=iS.count;iS.count=0;taps(n);},320);});
+  ui.addEventListener('contextmenu',function(e){e.preventDefault();});
+  $('ui-double').onclick=function(){taps(2);};
+  $('ui-hold').onclick=function(){setMode('tools');};
+  $('ui-reset').onclick=function(){iS.offset=0;setMode('idle');};
+  $('ui-night').onclick=function(){iS.theme='night';uiRender();};
+  $('ui-day').onclick=function(){iS.theme='day';uiRender();};
+  $('ui-screen').addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;var fn=t.getAttribute('data-fn');if(!fn)return;
+    if(fn==='noop')say('Settings live in the app.');
+    else if(fn==='close')setMode('idle');
+    else setMode(fn);});
+  $('ui-done').onclick=function(){taps(1);};
+  $('ui-cancel').onclick=function(){taps(2);};
+  uiRender();
+}
+})();
+  var vids=[].slice.call(document.querySelectorAll('.df-vid'));
+  var rmMotion=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if('IntersectionObserver' in window && vids.length){
+    var vio=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(!v)return;
+      if(en.isIntersecting&&!rmMotion){v.play().catch(function(){});}else{v.pause();}});},{threshold:.25});
+    vids.forEach(function(v){vio.observe(v);});
+  }
+</script>
 </body>
 </html>
